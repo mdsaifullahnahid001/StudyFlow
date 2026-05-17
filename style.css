@@ -856,52 +856,55 @@ a { color: inherit; text-decoration: none; }
    13. COMPLETE CONVERSION TO STANDARD WEB APPLICATION
    ────────────────────────────────────────── */
 
-/* 1. Forces the main container to stretch across the entire screen */
+/* 1. Normalizes the main body and page structure */
+body {
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  background: var(--bg) !important;
+  min-height: 100vh !important;
+}
+
+/* 2. Forces the container to act as a proper full-width layouts */
 .phone-frame {
   width: 100% !important;
   max-width: 100% !important;
-  height: 100vh !important;
+  height: auto !important;
+  min-height: 100vh !important;
   margin: 0 !important;
   border-radius: 0 !important;
   border: none !important;
   box-shadow: none !important;
   position: relative !important;
-  overflow: hidden !important;
+  overflow: visible !important;
 }
 
-/* 2. Fixes screen scroll and layout restriction to make it normal full width */
-.screen-scroll,
-.screen-container {
+/* 3. Centers and limits content width on big screens to look premium and standard */
+.screen-container,
+.screen-scroll {
   width: 100% !important;
-  max-width: 100% !important;
-  margin: 0 !important;
-  padding: 16px !important;
+  max-width: 800px !important; /* Prevents text and cards from over-stretching */
+  margin: 0 auto !important;    /* Perfectly centers the app dashboard on desktop */
+  padding: 20px 16px 100px !important; /* Balanced padding and space for navigation */
 }
 
-/* 3. Normalizes the main body and layout */
-body {
-  padding: 0 !important;
-  margin: 0 !important;
-  overflow: hidden !important;
-  background: var(--bg) !important;
-  height: 100vh !important;
-  width: 100vw !important;
-}
-
-/* 4. Completely removes the fake phone components and ambient glow */
+/* 4. Completely removes the fake phone shell elements */
 .phone-notch, 
 .status-bar,
 body::before {
   display: none !important;
 }
 
-/* 5. Mobile Responsive Grid Fix (Prevents squeezing on small screens) */
+/* 5. Mobile Responsive Grid Layouts (Keeps cards neat and clean) */
 @media (max-width: 768px) {
   .stats-grid {
     grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
   }
+  .screen-container,
   .screen-scroll {
-    padding: 12px !important;
+    padding: 16px 12px 90px !important;
   }
 }
 
@@ -911,10 +914,10 @@ body::before {
   }
 }
 
-/* 6. Desktop optimization (Keeps it professional on ultra-wide screens) */
-@media (min-width: 1024px) {
-  .screen {
-    max-width: 1200px !important;
-    margin: 0 auto !important;
-  }
+/* 6. Fixes the bottom navigation bar to stay centered with the content */
+.nav-bar {
+  max-width: 800px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  border-radius: 16px 16px 0 0 !important;
 }
