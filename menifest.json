@@ -1,0 +1,176 @@
+{
+  "name": "StudyFlow — Smart Learning Tracker",
+  "short_name": "StudyFlow",
+  "description": "Plan weekly study routines, track daily progress, store notes, monitor streaks, and analyze your learning performance.",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#0f1117",
+  "background_color": "#0f1117",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["education", "productivity", "utilities"],
+
+  "icons": [
+    {
+      "src": "icons/icon-48x48.png",
+      "sizes": "48x48",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/icon-maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+
+  "screenshots": [
+    {
+      "src": "screenshots/dashboard.png",
+      "sizes": "375x812",
+      "type": "image/png",
+      "label": "Dashboard — streaks, routines and stats",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "screenshots/planner.png",
+      "sizes": "375x812",
+      "type": "image/png",
+      "label": "Weekly Routine Planner",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "screenshots/progress.png",
+      "sizes": "375x812",
+      "type": "image/png",
+      "label": "Progress Analytics",
+      "form_factor": "narrow"
+    }
+  ],
+
+  "shortcuts": [
+    {
+      "name": "Log Study Session",
+      "short_name": "Log Session",
+      "description": "Quickly log a new study session",
+      "url": "/index.html#screen-log",
+      "icons": [
+        {
+          "src": "icons/shortcut-log.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Weekly Planner",
+      "short_name": "Planner",
+      "description": "Open the weekly routine planner",
+      "url": "/index.html#screen-routine",
+      "icons": [
+        {
+          "src": "icons/shortcut-planner.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "View Progress",
+      "short_name": "Progress",
+      "description": "Check your study analytics and streaks",
+      "url": "/index.html#screen-progress",
+      "icons": [
+        {
+          "src": "icons/shortcut-progress.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+
+  "related_applications": [],
+  "prefer_related_applications": false,
+
+  "protocol_handlers": [],
+
+  "share_target": {
+    "action": "/index.html",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+
+  "display_override": ["standalone", "minimal-ui", "browser"],
+
+  "edge_side_panel": {
+    "preferred_width": 400
+  }
+}

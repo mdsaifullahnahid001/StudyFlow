@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyFlow — Smart Learning Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ───────────── MOBILE SHELL ───────────── -->
+  <div class="phone-frame">
+    <div class="phone-notch"></div>
+
+    <!-- STATUS BAR -->
+    <div class="status-bar">
+      <span class="status-time">9:41</span>
+      <span class="status-icons">▲▲▲ 🔋</span>
+    </div>
+
+    <!-- SCREEN CONTAINER (one screen visible at a time) -->
+    <div class="screen-container">
+
+      <!-- ═══════════ SCREEN: DASHBOARD ═══════════ -->
+      <div class="screen active" id="screen-home">
+
+        <!-- Top Header -->
+        <div class="top-bar">
+          <div>
+            <p class="top-bar-greeting">Good Morning ☀️</p>
+            <h2 class="top-bar-name">Alex Rahman</h2>
+          </div>
+          <div class="avatar" aria-label="User avatar">AR</div>
+        </div>
+
+        <!-- Streak + Points Row -->
+        <div class="stat-row">
+          <div class="stat-card stat-fire">
+            <span class="stat-icon">🔥</span>
+            <div>
+              <p class="stat-value">12</p>
+              <p class="stat-label">Day Streak</p>
+            </div>
+          </div>
+          <div class="stat-card stat-star">
+            <span class="stat-icon">⭐</span>
+            <div>
+              <p class="stat-value">340</p>
+              <p class="stat-label">Points</p>
+            </div>
+          </div>
+          <div class="stat-card stat-clock">
+            <span class="stat-icon">⏱</span>
+            <div>
+              <p class="stat-value">4.2h</p>
+              <p class="stat-label">Today</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Level Badge -->
+        <div class="level-badge">
+          <div class="level-left">
+            <span class="level-icon">🎓</span>
+            <div>
+              <p class="level-title">Consistent Learner</p>
+              <p class="level-sub">Level 2 · 340 / 500 pts to next</p>
+            </div>
+          </div>
+          <div class="level-progress-wrap">
+            <div class="level-bar">
+              <div class="level-fill" style="width:68%"></div>
+            </div>
+            <span class="level-pct">68%</span>
+          </div>
+        </div>
+
+        <!-- Today's Routines -->
+        <div class="section-header">
+          <h3 class="section-title">Today's Routines</h3>
+          <button class="section-link" onclick="navigate('screen-routine')">View all</button>
+        </div>
+        <div class="routine-list">
+          <div class="routine-card rc-math">
+            <div class="rc-time">08:00 – 09:30</div>
+            <div class="rc-body">
+              <p class="rc-subject">Mathematics</p>
+              <p class="rc-topic">Calculus · Integration by Parts</p>
+            </div>
+            <button class="rc-check done" aria-label="Done">✓</button>
+          </div>
+          <div class="routine-card rc-phys">
+            <div class="rc-time">10:00 – 11:00</div>
+            <div class="rc-body">
+              <p class="rc-subject">Physics</p>
+              <p class="rc-topic">Thermodynamics · 2nd Law</p>
+            </div>
+            <button class="rc-check" aria-label="Mark done">○</button>
+          </div>
+          <div class="routine-card rc-eng">
+            <div class="rc-time">14:00 – 15:30</div>
+            <div class="rc-body">
+              <p class="rc-subject">English</p>
+              <p class="rc-topic">Essay Writing · Argumentative</p>
+            </div>
+            <button class="rc-check" aria-label="Mark done">○</button>
+          </div>
+        </div>
+
+        <!-- Quick Log -->
+        <button class="fab-inline" onclick="navigate('screen-log')">
+          <span>＋</span> Log Study Session
+        </button>
+
+        <!-- Recent Notes Preview -->
+        <div class="section-header">
+          <h3 class="section-title">Recent Notes</h3>
+          <button class="section-link" onclick="navigate('screen-notes')">See all</button>
+        </div>
+        <div class="notes-scroll">
+          <div class="note-chip note-yellow">
+            <p class="note-chip-title">Integration formulas</p>
+            <p class="note-chip-sub">Maths · 2h ago</p>
+          </div>
+          <div class="note-chip note-blue">
+            <p class="note-chip-title">Carnot cycle diagram</p>
+            <p class="note-chip-sub">Physics · Yesterday</p>
+          </div>
+          <div class="note-chip note-green">
+            <p class="note-chip-title">Essay structure tips</p>
+            <p class="note-chip-sub">English · 3d ago</p>
+          </div>
+        </div>
+
+        <!-- Motivational Banner -->
+        <div class="motive-banner">
+          <p class="motive-text">"Consistency beats intensity every time."</p>
+          <p class="motive-sub">Keep your streak alive — 1 session away from Level 3!</p>
+        </div>
+
+      </div>
+      <!-- /DASHBOARD -->
+
+
+      <!-- ═══════════ SCREEN: ROUTINE PLANNER ═══════════ -->
+      <div class="screen" id="screen-routine">
+
+        <div class="screen-header">
+          <button class="back-btn" onclick="navigate('screen-home')">←</button>
+          <h2 class="screen-title">Weekly Planner</h2>
+          <button class="header-action" aria-label="Add routine">＋</button>
+        </div>
+
+        <!-- Day tabs -->
+        <div class="day-tabs">
+          <button class="day-tab active">Mon</button>
+          <button class="day-tab">Tue</button>
+          <button class="day-tab">Wed</button>
+          <button class="day-tab">Thu</button>
+          <button class="day-tab">Fri</button>
+          <button class="day-tab">Sat</button>
+          <button class="day-tab">Sun</button>
+        </div>
+
+        <!-- Timetable Grid -->
+        <div class="timetable">
+          <div class="time-slot">
+            <span class="slot-time">08:00</span>
+            <div class="slot-block slot-math">
+              <p class="slot-subject">Mathematics</p>
+              <p class="slot-topic">Calculus · 90 min</p>
+              <div class="slot-dot"></div>
+            </div>
+          </div>
+          <div class="time-slot">
+            <span class="slot-time">10:00</span>
+            <div class="slot-block slot-phys">
+              <p class="slot-subject">Physics</p>
+              <p class="slot-topic">Thermodynamics · 60 min</p>
+              <div class="slot-dot"></div>
+            </div>
+          </div>
+          <div class="time-slot">
+            <span class="slot-time">12:00</span>
+            <div class="slot-empty">Free slot — tap to add</div>
+          </div>
+          <div class="time-slot">
+            <span class="slot-time">14:00</span>
+            <div class="slot-block slot-eng">
+              <p class="slot-subject">English</p>
+              <p class="slot-topic">Essay Writing · 90 min</p>
+              <div class="slot-dot"></div>
+            </div>
+          </div>
+          <div class="time-slot">
+            <span class="slot-time">16:00</span>
+            <div class="slot-block slot-chem">
+              <p class="slot-subject">Chemistry</p>
+              <p class="slot-topic">Organic Reactions · 60 min</p>
+              <div class="slot-dot"></div>
+            </div>
+          </div>
+          <div class="time-slot">
+            <span class="slot-time">18:00</span>
+            <div class="slot-empty">Free slot — tap to add</div>
+          </div>
+        </div>
+
+        <!-- Add Routine Button -->
+        <button class="fab-inline" style="margin-top:16px">
+          <span>＋</span> Add New Routine
+        </button>
+
+      </div>
+      <!-- /ROUTINE -->
+
+
+      <!-- ═══════════ SCREEN: STUDY LOG ═══════════ -->
+      <div class="screen" id="screen-log">
+
+        <div class="screen-header">
+          <button class="back-btn" onclick="navigate('screen-home')">←</button>
+          <h2 class="screen-title">Study Log</h2>
+          <button class="header-action">📅</button>
+        </div>
+
+        <!-- Log Entry Form -->
+        <div class="log-form">
+          <p class="form-section-label">NEW ENTRY</p>
+
+          <div class="form-row">
+            <label class="form-label">Subject</label>
+            <select class="form-select">
+              <option>Mathematics</option>
+              <option>Physics</option>
+              <option>Chemistry</option>
+              <option>English</option>
+              <option>History</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label class="form-label">Topic</label>
+            <input class="form-input" type="text" placeholder="e.g. Differential Equations" />
+          </div>
+          <div class="form-row two-col">
+            <div>
+              <label class="form-label">Duration (min)</label>
+              <input class="form-input" type="number" placeholder="60" />
+            </div>
+            <div>
+              <label class="form-label">Date</label>
+              <input class="form-input" type="date" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label">Tags</label>
+            <div class="tag-row">
+              <span class="tag tag-active">#exam</span>
+              <span class="tag">#revision</span>
+              <span class="tag">#notes</span>
+              <span class="tag tag-add">＋</span>
+            </div>
+          </div>
+
+          <button class="btn-primary">Save Session (+10 pts)</button>
+        </div>
+
+        <!-- Log History -->
+        <div class="section-header" style="margin-top:24px">
+          <h3 class="section-title">History</h3>
+        </div>
+        <div class="log-history">
+          <div class="log-entry">
+            <div class="log-color-bar lb-math"></div>
+            <div class="log-info">
+              <p class="log-subj">Mathematics</p>
+              <p class="log-meta">Integration by Parts · 90 min · Today</p>
+            </div>
+            <span class="log-pts">+10</span>
+          </div>
+          <div class="log-entry">
+            <div class="log-color-bar lb-phys"></div>
+            <div class="log-info">
+              <p class="log-subj">Physics</p>
+              <p class="log-meta">Newton's Laws · 60 min · Yesterday</p>
+            </div>
+            <span class="log-pts">+10</span>
+          </div>
+          <div class="log-entry">
+            <div class="log-color-bar lb-eng"></div>
+            <div class="log-info">
+              <p class="log-subj">English</p>
+              <p class="log-meta">Essay Structure · 75 min · 2d ago</p>
+            </div>
+            <span class="log-pts">+10</span>
+          </div>
+          <div class="log-entry">
+            <div class="log-color-bar lb-chem"></div>
+            <div class="log-info">
+              <p class="log-subj">Chemistry</p>
+              <p class="log-meta">Organic Reactions · 50 min · 3d ago</p>
+            </div>
+            <span class="log-pts">+10</span>
+          </div>
+        </div>
+
+      </div>
+      <!-- /LOG -->
+
+
+      <!-- ═══════════ SCREEN: NOTES ═══════════ -->
+      <div class="screen" id="screen-notes">
+
+        <div class="screen-header">
+          <button class="back-btn" onclick="navigate('screen-home')">←</button>
+          <h2 class="screen-title">Notes</h2>
+          <button class="header-action">🔍</button>
+        </div>
+
+        <!-- Search -->
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input class="search-input" type="text" placeholder="Search notes, OCR text…" />
+        </div>
+
+        <!-- Filter chips -->
+        <div class="filter-row">
+          <span class="filter-chip active">All</span>
+          <span class="filter-chip">Maths</span>
+          <span class="filter-chip">Physics</span>
+          <span class="filter-chip">English</span>
+          <span class="filter-chip">#exam</span>
+        </div>
+
+        <!-- Notes Grid -->
+        <div class="notes-grid">
+
+          <div class="note-card nc-yellow">
+            <div class="nc-img-placeholder">📸 <span>integration_notes.jpg</span></div>
+            <p class="nc-title">Integration Formulas</p>
+            <p class="nc-meta">Maths · #exam · 2h ago</p>
+            <div class="nc-tags"><span class="tag">#exam</span><span class="tag">#formula</span></div>
+          </div>
+
+          <div class="note-card nc-blue">
+            <div class="nc-img-placeholder">📸 <span>carnot_cycle.jpg</span></div>
+            <p class="nc-title">Carnot Cycle Diagram</p>
+            <p class="nc-meta">Physics · #diagram · Yesterday</p>
+            <div class="nc-tags"><span class="tag">#diagram</span></div>
+          </div>
+
+          <div class="note-card nc-green">
+            <p class="nc-title">Essay Structure Tips</p>
+            <p class="nc-body-preview">Introduction → Thesis → 3 body paragraphs → Conclusion. Use transition words...</p>
+            <p class="nc-meta">English · #writing · 3d ago</p>
+            <div class="nc-tags"><span class="tag">#writing</span></div>
+          </div>
+
+          <div class="note-card nc-rose">
+            <div class="nc-img-placeholder">📸 <span>organic_rxn.jpg</span></div>
+            <p class="nc-title">Organic Reactions Chart</p>
+            <p class="nc-meta">Chemistry · #revision · 4d ago</p>
+            <div class="nc-tags"><span class="tag">#revision</span></div>
+          </div>
+
+        </div>
+
+        <!-- Add Note FAB -->
+        <button class="fab-circle" aria-label="Add note">＋</button>
+
+      </div>
+      <!-- /NOTES -->
+
+
+      <!-- ═══════════ SCREEN: PROGRESS ═══════════ -->
+      <div class="screen" id="screen-progress">
+
+        <div class="screen-header">
+          <button class="back-btn" onclick="navigate('screen-home')">←</button>
+          <h2 class="screen-title">Progress</h2>
+          <button class="header-action">⬇</button>
+        </div>
+
+        <!-- Period Tabs -->
+        <div class="period-tabs">
+          <button class="period-tab active">Week</button>
+          <button class="period-tab">Month</button>
+          <button class="period-tab">All Time</button>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="summary-row">
+          <div class="summary-card">
+            <p class="sum-val">28.4h</p>
+            <p class="sum-lbl">Total Study</p>
+          </div>
+          <div class="summary-card">
+            <p class="sum-val">4.1h</p>
+            <p class="sum-lbl">Daily Avg</p>
+          </div>
+          <div class="summary-card">
+            <p class="sum-val">87</p>
+            <p class="sum-lbl">Score</p>
+          </div>
+        </div>
+
+        <!-- Bar Chart (SVG) -->
+        <div class="chart-wrap">
+          <p class="chart-title">Daily Study Hours — This Week</p>
+          <svg class="bar-chart" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+            <!-- Gridlines -->
+            <line x1="0" y1="20" x2="300" y2="20" stroke="var(--grid)" stroke-width="1"/>
+            <line x1="0" y1="50" x2="300" y2="50" stroke="var(--grid)" stroke-width="1"/>
+            <line x1="0" y1="80" x2="300" y2="80" stroke="var(--grid)" stroke-width="1"/>
+            <line x1="0" y1="110" x2="300" y2="110" stroke="var(--grid)" stroke-width="1"/>
+            <!-- Bars -->
+            <rect class="bar b1" x="10"  y="50" width="32" height="60" rx="6"/>
+            <rect class="bar b2" x="54"  y="30" width="32" height="80" rx="6"/>
+            <rect class="bar b3" x="98"  y="40" width="32" height="70" rx="6"/>
+            <rect class="bar b4" x="142" y="20" width="32" height="90" rx="6"/>
+            <rect class="bar b5" x="186" y="35" width="32" height="75" rx="6"/>
+            <rect class="bar b6" x="230" y="55" width="32" height="55" rx="6"/>
+            <rect class="bar b7 bar-today" x="258" y="45" width="32" height="65" rx="6"/>
+            <!-- Labels -->
+            <text class="bar-label" x="26"  y="118">Mon</text>
+            <text class="bar-label" x="70"  y="118">Tue</text>
+            <text class="bar-label" x="114" y="118">Wed</text>
+            <text class="bar-label" x="158" y="118">Thu</text>
+            <text class="bar-label" x="202" y="118">Fri</text>
+            <text class="bar-label" x="246" y="118">Sat</text>
+            <text class="bar-label" x="268" y="118">Sun</text>
+          </svg>
+        </div>
+
+        <!-- Subject Breakdown -->
+        <p class="chart-title" style="margin: 20px 0 12px">Subject Breakdown</p>
+        <div class="breakdown-list">
+          <div class="breakdown-row">
+            <span class="br-dot bd-math"></span>
+            <span class="br-subject">Mathematics</span>
+            <div class="br-bar-wrap"><div class="br-bar" style="width:72%;background:var(--math-col)"></div></div>
+            <span class="br-hrs">10.2h</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="br-dot bd-phys"></span>
+            <span class="br-subject">Physics</span>
+            <div class="br-bar-wrap"><div class="br-bar" style="width:55%;background:var(--phys-col)"></div></div>
+            <span class="br-hrs">7.8h</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="br-dot bd-eng"></span>
+            <span class="br-subject">English</span>
+            <div class="br-bar-wrap"><div class="br-bar" style="width:42%;background:var(--eng-col)"></div></div>
+            <span class="br-hrs">5.9h</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="br-dot bd-chem"></span>
+            <span class="br-subject">Chemistry</span>
+            <div class="br-bar-wrap"><div class="br-bar" style="width:32%;background:var(--chem-col)"></div></div>
+            <span class="br-hrs">4.5h</span>
+          </div>
+        </div>
+
+        <!-- Streak Calendar -->
+        <p class="chart-title" style="margin: 20px 0 12px">Streak Calendar — May</p>
+        <div class="streak-grid">
+          <!-- 31 days -->
+          <div class="streak-day sd-done"></div><div class="streak-day sd-done"></div>
+          <div class="streak-day sd-done"></div><div class="streak-day sd-done"></div>
+          <div class="streak-day sd-miss"></div><div class="streak-day sd-done"></div>
+          <div class="streak-day sd-done"></div><div class="streak-day sd-done"></div>
+          <div class="streak-day sd-done"></div><div class="streak-day sd-done"></div>
+          <div class="streak-day sd-done"></div><div class="streak-day sd-done"></div>
+          <div class="streak-day sd-done"></div><div class="streak-day sd-miss"></div>
+          <div class="streak-day sd-done"></div><div class="streak-day sd-done"></div>
+          <div class="streak-day sd-done"></div><div class="streak-day sd-done"></div>
+          <div class="streak-day sd-done"></div><div class="streak-day sd-done"></div>
+          <div class="streak-day sd-today"></div><div class="streak-day sd-empty"></div>
+          <div class="streak-day sd-empty"></div><div class="streak-day sd-empty"></div>
+          <div class="streak-day sd-empty"></div><div class="streak-day sd-empty"></div>
+          <div class="streak-day sd-empty"></div><div class="streak-day sd-empty"></div>
+          <div class="streak-day sd-empty"></div><div class="streak-day sd-empty"></div>
+          <div class="streak-day sd-empty"></div>
+        </div>
+        <div class="streak-legend">
+          <span class="sl-item"><span class="sl-dot sd-done"></span>Studied</span>
+          <span class="sl-item"><span class="sl-dot sd-miss"></span>Missed</span>
+          <span class="sl-item"><span class="sl-dot sd-today"></span>Today</span>
+        </div>
+
+      </div>
+      <!-- /PROGRESS -->
+
+    </div>
+    <!-- /SCREEN CONTAINER -->
+
+
+    <!-- ───────────── BOTTOM NAV ───────────── -->
+    <nav class="bottom-nav">
+      <button class="nav-item active" onclick="navigate('screen-home')" aria-label="Home">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">Home</span>
+      </button>
+      <button class="nav-item" onclick="navigate('screen-routine')" aria-label="Planner">
+        <span class="nav-icon">📅</span>
+        <span class="nav-label">Planner</span>
+      </button>
+      <button class="nav-item" onclick="navigate('screen-log')" aria-label="Log">
+        <span class="nav-icon">📝</span>
+        <span class="nav-label">Log</span>
+      </button>
+      <button class="nav-item" onclick="navigate('screen-notes')" aria-label="Notes">
+        <span class="nav-icon">🖼</span>
+        <span class="nav-label">Notes</span>
+      </button>
+      <button class="nav-item" onclick="navigate('screen-progress')" aria-label="Progress">
+        <span class="nav-icon">📊</span>
+        <span class="nav-label">Progress</span>
+      </button>
+    </nav>
+
+  </div>
+  <!-- /PHONE FRAME -->
+
+
+  <!-- ═══════ SCRIPT ═══════ -->
+  <script>
+    // ── Navigation ──
+    function navigate(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+
+      const map = {
+        'screen-home': 0, 'screen-routine': 1,
+        'screen-log': 2,  'screen-notes': 3, 'screen-progress': 4
+      };
+      const idx = map[id];
+      if (idx !== undefined) {
+        document.querySelectorAll('.nav-item')[idx].classList.add('active');
+      }
+    }
+
+    // ── Day Tab Toggle ──
+    document.querySelectorAll('.day-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+
+    // ── Period Tab Toggle ──
+    document.querySelectorAll('.period-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.period-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+
+    // ── Routine check buttons ──
+    document.querySelectorAll('.rc-check').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.classList.toggle('done');
+        btn.textContent = btn.classList.contains('done') ? '✓' : '○';
+      });
+    });
+
+    // ── Filter chips (notes) ──
+    document.querySelectorAll('.filter-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+      });
+    });
+
+    // ── Tags toggle ──
+    document.querySelectorAll('.tag:not(.tag-add)').forEach(tag => {
+      tag.addEventListener('click', () => tag.classList.toggle('tag-active'));
+    });
+
+    // ── Bar chart hover ──
+    document.querySelectorAll('.bar').forEach(bar => {
+      bar.addEventListener('mouseenter', () => bar.style.opacity = '0.85');
+      bar.addEventListener('mouseleave', () => bar.style.opacity = '1');
+    });
+  
+    if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => console.log('SW registered:', reg.scope))
+      .catch(err => console.error('SW error:', err));
+   }
+    </script>
+
+</body>
+</html>
