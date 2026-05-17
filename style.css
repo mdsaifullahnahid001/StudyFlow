@@ -853,34 +853,68 @@ a { color: inherit; text-decoration: none; }
 .sd-today { animation: pulse 2s infinite; }
 
 /* ──────────────────────────────────────────
-   13. DESKTOP CENTERING AMBIENT GLOW
-────────────────────────────────────────── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 600px 500px at 30% 20%, rgba(91,127,255,.08), transparent),
-    radial-gradient(ellipse 500px 400px at 70% 80%, rgba(167,139,250,.06), transparent);
-  pointer-events: none;
-  z-index: -1;
+   13. COMPLETE CONVERSION TO STANDARD WEB APPLICATION
+   ────────────────────────────────────────── */
+
+/* 1. Forces the main container to stretch across the entire screen */
+.phone-frame {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 100vh !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  position: relative !important;
+  overflow: hidden !important;
 }
 
-/* ──────────────────────────────────────────
-   14. RESPONSIVE (real mobile)
-────────────────────────────────────────── */
-@media (max-width: 420px) {
-  body {
-    background: var(--bg);
-    align-items: flex-start;
+/* 2. Fixes screen scroll and layout restriction to make it normal full width */
+.screen-scroll,
+.screen-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 16px !important;
+}
+
+/* 3. Normalizes the main body and layout */
+body {
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  background: var(--bg) !important;
+  height: 100vh !important;
+  width: 100vw !important;
+}
+
+/* 4. Completely removes the fake phone components and ambient glow */
+.phone-notch, 
+.status-bar,
+body::before {
+  display: none !important;
+}
+
+/* 5. Mobile Responsive Grid Fix (Prevents squeezing on small screens) */
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
   }
-  .phone-frame {
-    width: 100%;
-    height: 100dvh;
-    border-radius: 0;
-    border: none;
-    box-shadow: none;
+  .screen-scroll {
+    padding: 12px !important;
   }
-  .phone-notch { display: none; }
-  .fab-circle { right: 20px; }
+}
+
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+/* 6. Desktop optimization (Keeps it professional on ultra-wide screens) */
+@media (min-width: 1024px) {
+  .screen {
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+  }
 }
