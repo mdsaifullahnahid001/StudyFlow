@@ -1407,12 +1407,13 @@ const AppController = (() => {
   }
 
   async function _loadUser() {
-    // Try to find saved anonymous user
+    // Try to find saved user
     const users = await Database.getAll(APP_CONFIG.db.stores.users);
     let user = users[0] || null;
 
     if (!user) {
-      user = Models.createUser({ name: 'Anonymous Student' });
+      // First launch: create a fresh user with no pre-filled name
+      user = Models.createUser({ name: '' });
       await Database.put(APP_CONFIG.db.stores.users, user);
     }
 
@@ -1887,7 +1888,10 @@ const UI = (() => {
       <div class="dashboard" id="dashboard-root">
         <div class="dashboard__header">
           <div>
-            <h1 class="dashboard__greeting">Hello, ${Utils.sanitizeHTML(user?.name || 'Student')} 👋</h1>
+            <h1 class="dashboard__greeting">${user?.name
+              ? `Hello, ${Utils.sanitizeHTML(user.name)} 👋`
+              : `Welcome! <button class="btn btn--link" onclick="UI.navigate('settings')" style="font-size:inherit;font-weight:800;">Set your name →</button>`
+            }</h1>
             <p class="dashboard__date">${new Date().toLocaleDateString(navigator.language, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
           </div>
           <div class="dashboard__avatar" title="Profile">${(user?.name || 'S')[0].toUpperCase()}</div>
