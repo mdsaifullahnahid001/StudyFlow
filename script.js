@@ -2390,11 +2390,11 @@ const UI = (() => {
           </div>
           <div class="form-group">
             <label>Start Time *</label>
-            <input type="time" id="m-start" value="09:00">
+            <input type="time" id="m-start">
           </div>
           <div class="form-group">
             <label>End Time *</label>
-            <input type="time" id="m-end" value="10:00">
+            <input type="time" id="m-end">
           </div>
         </div>
         <div class="form-group">
@@ -2530,7 +2530,7 @@ const UI = (() => {
         <div class="form-row">
           <div class="form-group">
             <label>Duration (minutes) *</label>
-            <input type="number" id="ml-duration" min="1" max="480" value="60" placeholder="60">
+            <input type="number" id="ml-duration" min="1" max="480" placeholder="e.g. 60">
           </div>
           <div class="form-group">
             <label>Date</label>
@@ -2842,19 +2842,23 @@ const DOMBuilder = (() => {
 
       /* ====== APP SHELL ====== */
       #app {
+        width: 100%;
         max-width: 480px;
         margin: 0 auto;
         min-height: 100vh;
         background: var(--surface);
         position: relative;
         box-shadow: var(--shadow-lg);
+        box-sizing: border-box;
       }
 
       #page-root {
+        width: 100%;
         padding: 1rem;
         padding-bottom: calc(var(--nav-h) + 1rem);
         min-height: calc(100vh - var(--nav-h));
         overflow-y: auto;
+        box-sizing: border-box;
       }
 
       /* ====== LOADING SCREEN ====== */
@@ -2884,6 +2888,7 @@ const DOMBuilder = (() => {
         display: flex;
         z-index: 100;
         box-shadow: 0 -2px 12px rgba(0,0,0,.06);
+        box-sizing: border-box;
       }
       .nav-btn {
         flex: 1;
@@ -3240,9 +3245,55 @@ const DOMBuilder = (() => {
       }
       .fab:hover { transform: translateX(calc(240px - 32px)) scale(1.08); box-shadow: 0 6px 20px rgba(52,152,219,.5); }
 
-      @media (max-width:480px) {
-        .fab { right: 1rem; transform: none; }
-        .fab:hover { transform: scale(1.08); }
+      /* ====== MOBILE RESPONSIVE OVERRIDES ====== */
+      @media (max-width: 768px) {
+        /* Full-width app shell — removes the narrow 480px column */
+        #app {
+          max-width: 100% !important;
+          width: 100% !important;
+          margin: 0 !important;
+          box-shadow: none !important;
+          box-sizing: border-box !important;
+        }
+
+        /* Page content fills the full screen */
+        #page-root {
+          width: 100% !important;
+          max-width: 100% !important;
+          box-sizing: border-box !important;
+        }
+
+        /* Bottom nav spans full viewport width */
+        #bottom-nav {
+          left: 0 !important;
+          transform: none !important;
+          max-width: 100% !important;
+          width: 100% !important;
+          box-sizing: border-box !important;
+        }
+
+        /* FAB anchored to viewport right edge */
+        .fab {
+          right: 1rem !important;
+          transform: none !important;
+        }
+        .fab:hover { transform: scale(1.08) !important; }
+
+        /* Stat grid single column on very small screens */
+        .stat-grid { grid-template-columns: 1fr 1fr; }
+
+        /* Notes grid single column */
+        .notes-grid { grid-template-columns: 1fr; }
+
+        /* Form rows stack vertically */
+        .form-row { grid-template-columns: 1fr; }
+
+        /* Week grid horizontal scroll */
+        .week-grid { overflow-x: auto; }
+      }
+
+      @media (max-width: 360px) {
+        .stat-grid { grid-template-columns: 1fr; }
       }
     `;
     document.head.appendChild(style);
@@ -3413,3 +3464,84 @@ UI._handleOverlayClick = function (e) {
 
   console.log(`[SmartStudy] v${APP_CONFIG.version} booted successfully ✅`);
 })();
+
+/* ============================================================
+   SECTION 21 — MOBILE RESPONSIVE JS FIX
+   Ensures full-width layout on mobile by overriding any
+   max-width / centering styles injected by JS or CSS at runtime.
+   Runs on load and on every resize event.
+   ============================================================ */
+
+(function applyMobileResponsiveFix() {
+  const MOBILE_BREAKPOINT = 768;
+
+  /**
+   * Force full-width layout on mobile viewports.
+   * Uses direct style overrides so they win over any
+   * dynamically injected inline styles.
+   */
+  function applyFix() {
+    const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
+
+    const app = document.getElementById('app');
+    const pageRoot = document.getElementById('page-root');
+    const bottomNav = document.getElementById('bottom-nav');
+
+    if (app) {
+      if (isMobile) {
+        app.style.setProperty('max-width', '100%', 'important');
+        app.style.setProperty('width', '100%', 'important');
+        app.style.setProperty('margin-left', '0', 'important');
+        app.style.setProperty('margin-right', '0', 'important');
+        app.style.setProperty('box-shadow', 'none', 'important');
+        app.style.setProperty('box-sizing', 'border-box', 'important');
+      } else {
+        // Restore desktop layout
+        app.style.removeProperty('max-width');
+        app.style.removeProperty('width');
+        app.style.removeProperty('margin-left');
+        app.style.removeProperty('margin-right');
+        app.style.removeProperty('box-shadow');
+      }
+    }
+
+    if (pageRoot) {
+      if (isMobile) {
+        pageRoot.style.setProperty('width', '100%', 'important');
+        pageRoot.style.setProperty('max-width', '100%', 'important');
+        pageRoot.style.setProperty('box-sizing', 'border-box', 'important');
+      } else {
+        pageRoot.style.removeProperty('width');
+        pageRoot.style.removeProperty('max-width');
+      }
+    }
+
+    if (bottomNav) {
+      if (isMobile) {
+        bottomNav.style.setProperty('left', '0', 'important');
+        bottomNav.style.setProperty('transform', 'none', 'important');
+        bottomNav.style.setProperty('max-width', '100%', 'important');
+        bottomNav.style.setProperty('width', '100%', 'important');
+        bottomNav.style.setProperty('box-sizing', 'border-box', 'important');
+      } else {
+        bottomNav.style.removeProperty('left');
+        bottomNav.style.removeProperty('transform');
+        bottomNav.style.removeProperty('max-width');
+      }
+    }
+  }
+
+  // Run immediately in case DOM is already built
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyFix);
+  } else {
+    applyFix();
+  }
+
+  // Re-run after a short delay to catch any post-boot DOM injections
+  setTimeout(applyFix, 300);
+  setTimeout(applyFix, 800);
+
+  // Re-run on every resize (handles device rotation, window resize)
+  window.addEventListener('resize', Utils.throttle(applyFix, 150));
+}());
